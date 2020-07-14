@@ -27,7 +27,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #bootstrap-sass design
 gem 'bootstrap-sass', '~> 3.3.6'
 #Login de usuário
-gem 'devise', '~> 4.2'
+gem 'devise', '~> 4.7'
 #notificação
 gem 'toastr-rails', '~> 1.0'
 #e-mail ativação gmail
