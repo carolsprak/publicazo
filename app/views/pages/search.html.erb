@@ -1,0 +1,225 @@
+<div id="main">
+  <div id="left">
+    
+    <!-- SEARCH PANEL -->
+    <div class="row">
+      <div class="col-md-offset-4 col-md-4">
+        <button id="filter" class="btn btn-default" data-toggle="collapse" data-target="#collapsePanel">
+          Mais filtros <i class="fa fa-chevron-down"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <br/>
+      <div class="collapse" id="collapsePanel">
+
+          <%= search_form_for @search, url: search_path, remote: true do |f| %>
+
+              <div class="row">
+                <div class="col-md-8">
+                  <label>Preço médio:</label>
+                  <div id="slider-range"></div>
+                </div>
+                <div class="col-md-2">
+                  <label>Preço mínimo:</label>
+                  <%= f.text_field :price_gteq, class: "form-control" %>
+                </div>
+                <div class="col-md-2">
+                  <label>Preço máximo:</label>
+                  <%= f.text_field :price_lteq, class: "form-control" %>
+                </div>
+              </div>
+              <hr/>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <%= text_field_tag :start_date, params[:start_date], readonly: true, placeholder: "Data Inicial", class: "form-control datepicker" %>
+                </div>
+                <div class="col-md-6">
+                  <%= text_field_tag :end_date, params[:end_date], readonly: true, placeholder: "Data Final", class: "form-control datepicker" %>
+                </div>
+              </div>
+              <hr/>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <%= check_box_tag "q[service_category_eq_any][]", "Casa" %> Casa 
+                </div>
+                <div class="col-md-4">
+                  <%= check_box_tag "q[service_category_eq_any][]", "Ensino" %> Ensino
+                </div>
+                <div class="col-md-4">
+                  <%= check_box_tag "q[service_category_eq_any][]", "Pessoal" %> Pessoal
+                </div>
+                <div class="col-md-4">
+                  <%= check_box_tag "q[service_category_eq_any][]", "Saúde" %> Saúde
+                </div>
+                <div class="col-md-4">
+                  <%= check_box_tag "q[service_category_eq_any][]", "Viagem" %> Viagem
+                </div>
+              </div>
+              <hr/>
+              <div class="row">
+                <div class="col-md-4">
+                  <%= check_box_tag "q[service_type_eq_any][]", "Cabeleireira" %> Cabeleireira(o) 
+                </div>
+                <div class="col-md-4">
+                  <%= check_box_tag "q[service_type_eq_any][]", "Enfermeira" %> Enfermeira(o)
+                </div>
+                <div class="col-md-4">
+                  <%= check_box_tag "q[service_type_eq_any][]", "Faxineira" %> Faxineira
+                </div>
+                <div class="col-md-4">
+                  <%= check_box_tag "q[service_type_eq_any][]", "Guia Turístico" %> Guia Turístico
+                </div>
+                <div class="col-md-4">
+                  <%= check_box_tag "q[service_type_eq_any][]", "Professor" %> Professor
+                </div>
+              </div>
+              <hr/>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group select">
+                    <label>Periodicidade do Pagamento</label>
+                    <%= f.select :payment_period_gteq, [["Gratuito", "Gratuito"], ["Por Hora", "Por Hora"], ["Por Dia", "Por Dia"], ["Por Semana", "Por Semana"], ["Por Mês", "Por Mês"]], id: "payment_period", prompt: "Selecione", class: "form-control" %>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group select">
+                    <label>Modo de Atendimento</label>
+                    <%= f.select :service_mode_gteq, [["Em Domicílio", "Em Domicílio"], ["No Estabelecimento", "No Estabelecimento"]], id: "service_mode", prompt: "Selecione", class: "form-control" %>
+                  </div>
+                </div>
+                
+              </div>
+              <hr/>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <%= check_box_tag "q[is_independent_eq]", true %> Autônomo
+                </div>
+                <div class="col-md-4">
+                  <%= check_box_tag "q[is_legal_person_eq]", true %> Tem CNPJ
+                </div>
+                <div class="col-md-4">
+                  <%= check_box_tag "q[has_invoice_eq]", true %> Emite nota fiscal
+                </div>
+                <div class="col-md-4">
+                  <%= check_box_tag "q[has_garantee_eq]", true %> Dá garantia
+                </div>                
+              </div>
+              <hr/>
+
+              <div class="row text-center">
+                <%= f.submit "Pesquisar", class: "btn btn-form" %>
+              </div>
+          <% end %>
+      </div>
+      <br/>
+
+      <div class="row" id="service_listing">
+        <%= render partial: "services/services_list", locals: {services: @arrServices} %>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div id="right">
+    <!-- GOOGLE MAP WILL BE HERE -->
+
+    <div id="map" style="width: 100%; height: 100%"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script>
+        function initialize(services) {
+          var location = {lat: 44.5403, lng: -78.5463}
+
+          if (services.length > 0) {
+            location = {lat: services[0].latitude, lng: services[0].longitude}
+          }
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+            center: location,
+            zoom: 12
+          });
+
+          var marker, inforwindow;
+
+          services.forEach(function(service) {
+            marker = new google.maps.Marker({
+              position: {lat: service.latitude, lng: service.longitude},
+              map: map
+            });
+
+            inforwindow = new google.maps.InfoWindow({
+              content: "<div class='map_price'>R$ " + service.price + "</div>"
+            });
+
+            inforwindow.open(map, marker);
+          })
+        }
+
+        google.maps.event.addDomListener(window, 'load', function() {
+          initialize(<%= raw @arrServices.to_json %>)
+        });
+    </script>
+  </div>
+</div>
+
+
+<script>
+  $('#start_date').datepicker({
+    dateFormat: 'dd-mm-yy',
+    minDate: 0,
+    maxDate: '3m',
+    onSelect: function(selected) {
+      $('#end_date').datepicker("option", "minDate", selected);
+      $('#end_date').attr("disabled", false);
+    }
+  });
+
+  $('#end_date').datepicker({
+    dateFormat: 'dd-mm-yy',
+    minDate: 0,
+    maxDate: '3m',
+    onSelect: function(selected) {
+      $('#start_date').datepicker("option", "maxDate", selected);
+    }
+  });
+
+  var open = true;
+
+  $('#filter').click(function() {
+    if (open) {
+      $('#filter').html("Mais Filtros <i class='fa fa-chevron-up'></i>")
+    } else {
+      $('#filter').html("Mais Filtros <i class='fa fa-chevron-down'></i>")
+    }
+    open = !open;
+  });
+</script>
+
+<script>
+  $(function() {
+    $("#q_price_gteq").val('100');
+    $("#q_price_lteq").val('500');
+
+    $("#slider-range").slider({
+      range: true,
+      min: 0,
+      max: 1000,
+      values: [100, 500],
+      slide: function(event, ui) {
+        $("#q_price_gteq").val(ui.values[0]);
+        $("#q_price_lteq").val(ui.values[1]);
+      }
+    });
+
+    $(".ui-widget-header").css('background', '#00A699');
+    $(".ui-state-default, .ui-widget-content").css('background', 'white');
+    $(".ui-state-default, .ui-widget-content").css('border-color', '#00A699');
+  })
+</script>

@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-md-3">
+    <ul class="sidebar-list">
+      <li class="sidebar-item"><%= link_to "Serviços Anunciados", services_path, class: "sidebar-link" %></li>
+      <li class="sidebar-item"><%= link_to "Serviços Reservados", your_reservation_services_path, class: "sidebar-link active" %></li>
+      <li class="sidebar-item"><%= link_to "Serviços Contratados", your_contracted_services_path, class: "sidebar-link" %></li>
+    </ul>
+  </div>
+  <div class="col-md-9">
+    <% has_reservation = false %>
+    <% if @services.present? %>
+      <% @services.each do |service| %>
+        <% if service.reservation_services.present? %>
+          <% has_reservation = true %>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Serviços Reservados Abertos
+            </div>
+            <div class="panel-body">                  
+             <% service.reservation_services.each do |reservation| %>
+              <% if reservation.end_date >= Time.now %>
+                <div class="row">
+                  <div class="col-md-2">
+                   <span>
+                      <%= reservation.start_date.strftime('%d/%m/%Y') %> a <br/>
+                      <%= reservation.end_date.strftime('%d/%m/%Y') %>
+                    </span>
+                  </div>
+                  <div class="col-md-2">
+                    <%= link_to service_path(reservation.service) do %>
+                        <%= image_tag reservation.service.cover_photo, :size => "80x50" %>
+                    <% end %>
+                  </div>
+                  <div class="col-md-5">
+                    <%= link_to reservation.service.listing_name, service_path(reservation.service) %><br/><br/>
+                    <span>
+                      <%= link_to user_path(reservation.user) do %>
+                        <%= image_tag avatar_url(reservation.user), class: "img-circle avatar-small" %>
+                        <%= reservation.user.fullname %>
+                      <% end %>
+                    </span>
+                  </div>
+                 
+                  <div class="col-md-3 text-right">
+                    <%= render partial: "review_services/host_form", locals: {reservation_service: reservation} %>
+                  </div>
+                  
+                </div>
+                <hr/>
+              <% end %> <!-- IF -->
+             <% end %> <!-- EACH -->
+            </div>
+          </div>
+        <% end %> <!-- IF -->
+      <% end %> <!-- EACH -->
+    <% end %> <!-- IF -->
+  
+    <% if @services.present? %>
+      <% @services.each do |service| %>
+        <% if service.reservation_services.present? %>
+          <% has_reservation = true %>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Serviços Reservados Encerrados
+            </div>
+            <div class="panel-body">
+              <% service.reservation_services.each do |reservation| %>
+                <% if reservation.end_date < Time.now %>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <span>
+                        <%= reservation.start_date.strftime('%d/%m/%Y') %> a <br/>
+                        <%= reservation.end_date.strftime('%d/%m/%Y') %>
+                      </span>
+                    </div>
+                    <div class="col-md-2">
+                      <%= link_to service_path(reservation.service) do %>
+                          <%= image_tag reservation.service.cover_photo, :size => "80x50" %>
+                      <% end %>
+                    </div>
+                    <div class="col-md-5">
+                      <%= link_to reservation.service.listing_name, service_path(reservation.service) %><br/><br/>
+                      <span>
+                        <%= link_to user_path(reservation.user) do %>
+                          <%= image_tag avatar_url(reservation.user), class: "img-circle avatar-small" %>
+                          <%= reservation.user.fullname %>
+                        <% end %>
+                      </span>
+                    </div>                    
+                    <div class="col-md-3 text-right">
+                      <%= render partial: "review_services/host_form", locals: {reservation_service: reservation} %>
+                    </div>
+                  </div>
+                  <hr/>
+                <% end %> <!-- IF -->
+              <% end %> <!-- EACH -->
+            </div>
+          </div>
+        <% end %> <!-- IF -->
+      <% end %> <!-- EACH -->
+    <% end %> <!-- IF -->
+
+    <% if has_reservation == false %>      
+      <div class="panel panel-default"> 
+        <div class="panel-body">
+          <span>Não há serviços reservados.</span>
+        </div>
+      </div>
+    <% end %>
+  </div>  
+</div>

@@ -1,0 +1,38 @@
+<% if @host_review_services.count == 0 %>
+  <div class="text-center">
+    <h4>Não há nenhuma avaliação.</h4>
+  </div>
+<% else %>
+
+  <% @host_review_services.order(id: :desc).each do |r| %>
+    <hr/>
+    <div class="row">
+      <div class="col-md-3 text-center">
+        <%= image_tag avatar_url(r.host), class: "img-circle avatar-medium" %><br/><br/>
+        <strong><%= r.host.fullname %></strong>
+      </div>
+      <div class="col-md-9">
+        <div id="star_<%= r.id %>"></div>
+
+        <% if current_user && current_user == r.host %>
+            <span class="pull-right">
+              <%= link_to r, method: :delete, data: {confirm: "Você tem ceteza?"} do %>
+                  <i class="fa fa-trash-o fa-lg"></i>
+              <% end %>
+            </span>
+        <% end %>
+        <div><%= r.created_at.strftime('%d/%m/%Y') %></div>
+        <div><%= r.comment %></div>
+      </div>
+    </div>
+
+    <script>
+      $('#star_<%= r.id %>').raty({
+        path: '/assets',
+        readOnly: true,
+        score: <%= r.star %>
+      });
+    </script>
+
+  <% end %>
+<% end %>

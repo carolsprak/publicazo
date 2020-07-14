@@ -1,0 +1,249 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span><i class="fa fa-bolt" style="color: #ffb400"></i> R$<%= @service.price %></span>
+    <span class="pull-right"><%= @service.payment_period %></span>
+  </div>
+  <div class="panel-body">
+    <%= form_for([@service, @service.reservation_services.new]) do |f| %>
+      <div class="row">
+      	<% if @service.payment_period != "Por Hora" %>
+	        <div class="col-md-6">
+	          <label>Entrada</label>
+	          <%= f.text_field :start_date, readonly: 'true', placeholder: "Data Inicial", class: "form-control datepicker" %>	         
+	        </div>
+	        <div class="col-md-6">
+	          <label>Saída</label>	          
+	          <%= f.text_field :end_date, readonly: 'true', placeholder: "Data Final", class: "form-control datepicker", disabled: 'true' %>
+	        </div>
+        <% else %>
+	        <div class="col-md-6">
+	          <label>Data</label>
+	          <%= f.text_field :start_date, readonly: 'true', placeholder: "Data Inicial", class: "form-control datepicker" %>
+	        </div>
+	        <div class="col-md-6">
+	          <label>Horário</label>
+	          	<%= f.text_field :time_start, placeholder: "Hora Inicial", class: "form-control timepicker", id: "time_start" %>  
+	          	<%= f.text_field :time_end, placeholder: "Hora Final", class: "form-control timepicker", id: "time_end"%>          
+	        </div>
+        <% end %>
+      </div>
+
+	<%= f.hidden_field :service_id, value: @service.id %>
+	<%= f.hidden_field :price, value: @service.price %>
+
+
+      <h4 class="message-alert text-center"><span id="message"></span></h4>      
+      <div id="preview" style="display: none">
+        <table class="reservation-table">
+          <tbody>
+            <tr>
+              <td>Preço</td>
+              <td class="text-right">R$ <%= @service.price %></td>
+            </tr>
+            <tr>
+             <td><%= @service.payment_period %></td>
+             <% if @service.payment_period == "Por Hora" %>          		
+              	<td class="text-right">x <span id="reservation_service_hours"></span></td>
+          	 <% else %>              	
+              	<td class="text-right">x <span id="reservation_service_nights"></span></td>
+             <% end %>
+            </tr>
+            <tr>
+              <td class="total">Total</td>
+              <td class="text-right">R$ <span id="reservation_service_total"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <br/>
+
+      <%= f.submit "Reservar Agora", id: "btn_book", class: "btn btn-normal btn-block" , disabled: 'true' %>
+    <% end %>
+  </div>
+</div>
+
+
+<script type="text/javascript"> 
+	
+	function checkDate(date) {
+	    dmy = date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear();
+	    return [$.inArray(dmy, unavailableDates) == -1];
+  	}
+
+    $(function() {
+
+    	unavailableDates = [];
+
+    	$.ajax({
+	      	url: '/preload',
+	      	data: {'service_id': <%= @service.id %>},
+	      	dataType: 'json',
+	      	success: function(data) {
+
+		        $.each(data, function(arrID, arrValue) {
+
+		            for(var d = new Date(arrValue.start_date); d <= new Date(arrValue.end_date); d.setDate(d.getDate() +1)) {
+					  	unavailableDates.push($.datepicker.formatDate('d-m-yy', d));					  	
+	            	}
+		        });
+		    
+
+		    	$('#reservation_service_start_date').datepicker({
+		        	dateFormat: 'dd-mm-yy',
+				    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+				    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+				    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+				    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+				    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+				    nextText: 'Próximo',
+				    prevText: 'Anterior',
+
+				    minDate: 0,
+		            maxDate: '3m',
+		            beforeShowDay: checkDate,
+		            onSelect: function(selected) {
+			            $('#reservation_service_end_date').datepicker("option", "minDate", selected);
+			            $('#reservation_service_end_date').attr('disabled', false);
+
+			            var start_date = $('#reservation_service_start_date').datepicker('getDate');
+			            var end_date = $('#reservation_service_end_date').datepicker('getDate');
+			            var nights = (end_date - start_date)/1000/60/60/24+1;
+
+			            var input = {
+			                'start_date': start_date,
+			                'end_date': end_date,
+			                'service_id': <%= @service.id %>
+			            }
+
+			            $.ajax({
+			                url: '/preview',
+			                data: input,
+			                dataType: 'json',			                
+			                success: function(data) {			                	
+			                	
+				                if(data) {
+
+				                  	$('#message').text("Estas datas não estão disponíveis.");
+				                  	$('#preview').hide();
+				                  	$('#btn_book').attr('disabled', true);
+
+				                } else {
+				                  	
+				                  	$('#preview').show();
+				                  	$('#btn_book').attr('disabled', false);
+
+				                  	var total = nights * <%= @service.price %>
+				                 	$('#reservation_service_nights').text(nights);
+				                  	$('#reservation_service_total').text(total);
+				                }
+			                }
+			            });
+		          	} //onselect
+				}); //datapicker
+
+		        $('#reservation_service_end_date').datepicker({
+		        	dateFormat: 'dd-mm-yy',
+				    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+				    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+				    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+				    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+				    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+				    nextText: 'Próximo',
+				    prevText: 'Anterior',
+		          	minDate: 0,
+		          	maxDate: '3m',
+		          	beforeShowDay: checkDate,
+		          	onSelect: function(selected) {
+			            $('#reservation_service_start_date').datepicker("option", "maxDate", selected);
+
+			            var start_date = $('#reservation_service_start_date').datepicker('getDate');
+			            var end_date = $('#reservation_service_end_date').datepicker('getDate');
+			            var nights = (end_date - start_date)/1000/60/60/24 +1;
+
+			            var input = {
+			              	'start_date': start_date,
+			              	'end_date': end_date,
+			              	'service_id': <%= @service.id %>
+			            }
+
+			            $.ajax({
+			              	url: '/preview',
+			              	data: input,
+			              	dataType: 'json',			              	
+			              	success: function(data) {
+			              		
+				                if(data) {
+
+				                  	$('#message').text("Estas datas não estão disponíveis.");
+				                  	$('#preview').hide();
+				                  	$('#btn_book').attr('disabled', true);
+
+				                } else {
+				                  	
+				                  	$('#preview').show();
+				                  	$('#btn_book').attr('disabled', false);
+
+				                  	var total = nights * <%= @service.price %>
+				                  	$('#reservation_service_nights').text(nights);
+				                  	$('#reservation_service_total').text(total);
+				                }
+			                }
+			            }); //ajax
+		          	} //onselect
+
+	        	}); //datapicker
+
+	    }
+		});
+	});//function
+        
+    
+ 
+</script>
+
+<!-- Por Hora - timepicker AJEITAR O ONSELECT PARA CALCULAR TOTAL DE HORAS POR DIA-->
+<script type="text/javascript">	
+		
+		$('#time_start').timepicker({ 
+			step: 60,
+			onSelect: function(selected) {
+					    
+
+				var start_date = $('#reservation_service_start_date').datepicker('getDate');			    
+			    var nights = 1;
+			    var time_start = $('#time_start').data('timepicker').getTime();
+			    var time_end = $('#time_end').data('timepicker').getTime();		
+			    var hours = time_end - time_start;
+				$('#preview').show();
+				$('#btn_book').attr('disabled', false);
+
+				var total = nights * <%= @service.price %>
+				$('#reservation_service_hours').text(hours);
+				$('#reservation_service_total').text(total);
+				               
+				
+		    } //onselect
+		
+		});
+		$('#time_end').timepicker({ 
+			step: 60,
+			onSelect: function(selected) {				
+
+				var start_date = $('#reservation_service_start_date').datepicker('getDate');			    
+			    var nights = 1;
+			    var time_start = $('#time_start').data('timepicker').getTime();
+			    var time_end = $('#time_end').data('timepicker').getTime();		
+			    var hours = time_end - time_start;   
+
+			    $('#message').text(" Horas" + time_start + " a " + time_end);
+
+			    var total = nights * <%= @service.price %> * hours;
+				$('#reservation_service_hours').text(hours);				
+				$('#reservation_service_total').text(total);
+				
+				
+		    } //onselect
+		});
+	
+</script>

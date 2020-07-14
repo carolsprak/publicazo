@@ -1,0 +1,24 @@
+<% services.each do |service| %>
+  <% if service.active %>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading preview">
+          <%= image_tag service.cover_photo, :size => "110x150" %>
+        </div>
+        <div class="panel-body">
+          <%= link_to service.listing_name, service %><br/>
+          $<%= service.price %> - <%= service.service_type %> 
+          <div id="star_<%= service.id %>"></div> <%= pluralize(service.average_rating, "Comentário") %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    
+    <script>
+      $('#star_<%= service.id %>').raty({
+        path: '/assets',
+        readOnly: true,
+        score: <%= service.average_rating %>
+      });
+    </script>
+<% end %>

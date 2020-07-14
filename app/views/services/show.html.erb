@@ -1,0 +1,214 @@
+<!-- Image -->
+<div class="row">
+  <div class="col-md-12">
+    <%= image_tag @service.cover_photo, height: "300px" %>
+  </div>
+</div>
+<br/>
+
+<div class="row">
+
+  <!-- LEFT PANEL -->
+  <div class="col-md-8">
+
+    <!-- Listing Name -->
+    <div class="row">
+      <div class="col-md-8">
+        <h1><%= @service.listing_name %></h1>
+        <%= @service.address %>
+      </div>
+      <div class="col-md-4 text-center">
+        <%= image_tag avatar_url(@service.user), class: "img-circle avatar-large" %><br/><br/>
+        <%= link_to user_path(@service.user) do %>
+          <%= @service.user.fullname %>
+        <% end %>        
+      </div>
+    </div>
+    <hr/>
+
+    <!-- Room Info -->
+    <div class="row text-babu">
+      <div class="row text-center row-space-1">
+        <div class="col-md-3">
+          <i class="fa fa-university fa-2x"></i>
+        </div>
+        <div class="col-md-3">
+          <i class="fa fa-user-circle-o fa-2x"></i>
+        </div>
+        <div class="col-md-3">
+          <i class="fa fa-hourglass-half fa-2x"></i>
+        </div>
+        <div class="col-md-3">
+          <i class="fa fa-home fa-2x"></i>
+        </div>      
+      </div>
+
+      <div class="row text-center">
+        <div class="col-md-3"><%= @service.service_category %></div>
+        <div class="col-md-3"><%= @service.service_type  %></div>
+        <div class="col-md-3"><%= @service.payment_period %></div>
+        <div class="col-md-3"><%= @service.service_mode %></div>    
+      </div>
+
+    </div>
+    <hr/>
+
+    <!-- About -->
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Informações</h3>
+        <p><%= @service.summary %></p>
+      </div>
+    </div>
+    <hr/>
+
+    <!-- Amenities -->
+    <div class="row">
+      <div class="col-md-3">
+        <h4>Detalhes</h4>
+      </div>
+
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-6">
+            <ul class="amenities">
+              <li class="<%= 'text-line-through' if !@service.is_independent %>">Autônomo</li>
+              <li class="<%= 'text-line-through' if !@service.is_legal_person %>">Tem CNPJ</li>             
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="amenities">
+              <li class="<%= 'text-line-through' if !@service.has_invoice %>">Emite nota fiscal</li>
+              <li class="<%= 'text-line-through' if !@service.has_garantee %>">Dá garantia</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <hr/>
+
+    <!-- Carousel -->
+    <div class="row">
+
+      <% if @photos.length > 0 %>
+          <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <% @photos.each do |photo| %>
+                <li data-target="#myCarousel" data-slide-to="<%= photo.id %>"></li>
+            <% end %>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <% @photos.each do |photo| %>
+                <div class="item <%= 'active' if photo.id == @photos[0].id %>">
+                  <%= image_tag photo.image.url() %>
+                </div>
+            <% end %>
+          </div>
+
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Anterior</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Próxima</span>
+          </a>
+        </div>
+      <% end %>
+
+    </div>
+    <hr/>
+
+    <!-- REVIEWS -->
+    <div class="row">
+      <div class="col-md-12">
+        <h3>
+          <%= pluralize(@guest_review_services.count, "Comentário") %>
+          <span id="average_rating"></span>
+        </h3>
+        <div class="container">
+          <div><%= render "review_services/guest_list" %></div>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <hr/>
+
+    <!-- GOOGLE MAP -->
+    <div class="row">
+
+      <div id="map" style="width: 100%; height: 400px"></div>
+
+      <script src="https://maps.googleapis.com/maps/api/js"></script>
+      <script>
+          function initialize() {
+            var location = {lat: <%= @service.latitude %>, lng: <%= @service.longitude %>};
+            var map = new google.maps.Map(document.getElementById('map'), {
+              center: location,
+              zoom: 14
+            });
+
+            var marker = new google.maps.Marker({
+              position: location,
+              map: map
+            });
+
+            var infoWindow = new google.maps.InfoWindow({
+              content: '<div id="content"><%= image_tag @service.cover_photo, size: "160x100" %></div>'
+            });
+
+            infoWindow.open(map, marker);
+          }
+
+          google.maps.event.addDomListener(window, 'load', initialize);
+      </script>
+      <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbPMez6mL_3VEK97ePbnO44Hwsor1mgbQ&callback=initMap">
+        </script>       
+
+    </div>
+    <hr/>
+
+    <!-- NEAR BY ROOMS -->
+    <div class="row">
+      <h3>Outros Serviços na Região</h3>
+      <% for service in @service.nearbys(10) %>
+          <div class="col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading preview">
+                <%= image_tag service.cover_photo, size: "160x120" %>
+              </div>
+              <div class="panel-body">
+                <%= link_to service.listing_name, service %><br/>
+                (<%= service.distance.round(2) %> km)
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
+
+  </div>
+
+
+  <!-- RIGHT PANEL -->
+  <div class="col-md-4">
+    <!-- Reservation Form -->
+    <%= render 'reservation_services/form' %>
+  </div>
+</div>
+
+<script>
+  $('#average_rating').raty({
+    path: '/assets',
+    readOnly: true,
+    score: <%= @service.average_rating %>
+  });
+</script>
+
+

@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="center">
+      <%= image_tag avatar_url(@user), class: "avatar-full" %>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Verificação</div>
+      <div class="panel-body">
+        <ul class="sidebar-list">
+          <% if @user.confirmation_token %>
+            <li>E-mail<span class="pull-right icon-babu"><i class="fa fa-check-circle-o"></i></span></li>
+          <% end %>
+          <% if @user.provider %>
+            <li>Facebook<span class="pull-right icon-babu"><i class="fa fa-check-circle-o"></i></span></li>
+          <% end %>
+          <li>Telefone<span class="pull-right icon-babu"><i class="fa fa-check-circle-o"></i></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9">
+    <h2><%= @user.fullname %></h2>
+
+    <div class="description row-space-3">
+      <%= @user.description %>
+    </div>
+
+    <h4>Serviços Anunciados (<%= @services_active.length %>)</h4><br/>
+
+    <div class="row">
+      <%= render partial: "services/services_list", locals: {services: @services} %>
+    </div>
+    <br/>
+
+    <h4>Avaliações dos Clientes (<%= @guest_review_services.count %>)</h4>
+    <div class="row">
+      <%= render "review_services/guest_list" %>
+    </div>
+    <br/>
+
+    <h4>Avaliações dos Prestadores de Serviços (<%= @host_review_services.count %>)</h4>
+    <div class="row">
+      <%= render "review_services/host_list" %>
+    </div>
+    
+
+  </div>
+</div>

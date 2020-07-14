@@ -1,0 +1,53 @@
+<div>
+  <h3>Serviço</h3>
+</div>
+<ul class="sidebar-list">
+  <li class="sidebar-item">
+    <%= link_to "Informações", listing_service_path, class: "sidebar-link active" %>
+    <span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+  </li>
+  <li class="sidebar-item">
+    <%= link_to "Preço", pricing_service_path, class: "sidebar-link active" %>
+    <% if !@service.price.blank? %>
+      <span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+    <% end %>
+  </li>
+  <li class="sidebar-item">
+    <%= link_to "Descrição", description_service_path, class: "sidebar-link active" %>
+    <% if !@service.listing_name.blank? %>
+      <span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+    <% end %>
+  </li>
+  <li class="sidebar-item">
+    <%= link_to "Fotos", photo_upload_service_path, class: "sidebar-link active" %>
+    <% if !@service.photos.blank? %>
+      <span id="photo_check" class="pull-right text-babu"><i class="fa fa-check"></i></span>
+    <% end %>
+  </li>  
+  <li class="sidebar-item">
+    <%= link_to "Localização", location_service_path, class: "sidebar-link active" %>
+    <% if !@service.address.blank? %>
+      <span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+    <% end %>
+  </li>
+  <li class="sidebar-item">
+    <%= link_to "Detalhes", amenities_service_path, class: "sidebar-link active" %>
+    <% if !@service.is_independent.nil? %>
+      <span class="pull-right text-babu"><i class="fa fa-check"></i></span>
+    <% end %>
+  </li>
+</ul>
+<hr/>
+
+<% is_ready = !@service.active && !@service.price.blank? && !@service.listing_name.blank? && !@service.photos.blank? && !@service.address.blank? && !@service.is_independent.nil? %>
+
+<%= form_for @service do |f| %>
+  <%= f.hidden_field :active, value: true %>
+  <%= f.submit "Publicar Serviço", id: "publish_button", class: "btn btn-normal btn-block", disabled: !is_ready %>
+<% end %>
+<% if @service.active? %>
+  <%= form_for @service do |f| %>
+    <%= f.hidden_field :active, value: false %>
+    <%= f.submit "Despublicar Serviço", id: "unpublish_button", class: "btn btn-default btn-block", disabled: !@service.active %>
+  <% end %>
+<% end %> 

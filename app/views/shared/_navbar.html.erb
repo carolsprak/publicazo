@@ -1,0 +1,61 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">  
+      <div class="panel-heading">  
+        <%= link_to image_tag("logo_04_mn.png", :size => "150x40"), root_path %>
+      </div>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <%= form_tag search_path, class: "navbar-form navbar-left", method: :get do %>
+          <div class="form-group">
+            <%= text_field_tag :search, params[:search], placeholder: "Qual a sua cidade?", class: "form-control"  %><%= button_tag type: 'submit', class: "btn btn-search" do %>
+                <i class="fa fa-search" aria-hidden="true"></i>
+            <% end %>
+            
+          </div>
+          
+      <% end %>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <%= link_to new_service_path do %>
+            <i class="fa fa-home fa-lg"></i> Crie seu Anúncio
+          <% end %>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa fa-envelope-o"></i> Mensagens
+          </a>
+        </li>
+        <% if (!user_signed_in?) %>         
+          <li><%= link_to "Cadastre-se", new_user_registration_path %> </li>
+          <li><%= link_to "Entrar", new_user_session_path %> </li>
+        <% else %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <% if !(avatar_url(current_user) == Digest::MD5::hexdigest(current_user.email).downcase) %>
+                <%= image_tag avatar_url(current_user), class: "img-circle avatar-small"  %>&nbsp;
+              <% end %>
+             
+            <ul class="dropdown-menu">
+              <li><%= link_to "Editar Perfil", edit_user_registration_path %></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Gerenciar Lugares</a></li>
+              <li role="separator" class="divider"></li>
+              <li><%= link_to "Anuncie seu Serviço", new_service_path %></li>
+              <li><%= link_to "Serviços Anunciados", services_path %></li>
+              <li><%= link_to "Serviços Reservados", your_reservation_services_path %></li>
+              <li><%= link_to "Serviços Contratados", your_contracted_services_path %></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Gerenciar Eventos</a></li>
+              <li role="separator" class="divider"></li>              
+              <li><a href="#">Configurações da Conta</a></li>
+              <li><%= link_to "Sair", destroy_user_session_path, method: :delete %></li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>

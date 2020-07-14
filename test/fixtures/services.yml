@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service_category: MyString
+  service_type: MyString
+  payment_period: MyString
+  listing_name: MyString
+  summary: MyText
+  address: MyString
+  is_independent: false
+  is_legal_person: false
+  has_invoice: false
+  has_garantee: false
+  price: 1.5
+  active: false
+  user_id: 
+
+two:
+  service_category: MyString
+  service_type: MyString
+  payment_period: MyString
+  listing_name: MyString
+  summary: MyText
+  address: MyString
+  is_independent: false
+  is_legal_person: false
+  has_invoice: false
+  has_garantee: false
+  price: 1.5
+  active: false
+  user_id: 

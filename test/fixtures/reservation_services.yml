@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  service_id: 
+  start_date: 2017-09-01 00:07:23
+  end_date: 2017-09-01 00:07:23
+  price: 1
+  total: 1
+
+two:
+  user_id: 
+  service_id: 
+  start_date: 2017-09-01 00:07:23
+  end_date: 2017-09-01 00:07:23
+  price: 1
+  total: 1

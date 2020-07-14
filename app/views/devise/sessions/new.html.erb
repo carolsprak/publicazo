@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <h2 class="text-center">Entrar</h2>
+    <br/>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-group">
+        <%= f.email_field :email, autofocus: true, placeholder: "E-mail", class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.password_field :password, autocomplete: "off", placeholder: "Senha", class: "form-control" %>
+      </div>
+      <div>
+        <% if devise_mapping.rememberable? -%>
+          <%= f.check_box :remember_me %> Manter conectado
+        <% end -%>
+        <span class="pull-right">
+          <%= link_to "Esqueceu a Senha?", new_user_password_path %>
+        </span>
+      </div>
+      <div>
+        <span class="pull-right">
+          <%= link_to "Não recebeu o e-mail de confirmação?", new_user_confirmation_path %>
+        </span>
+      </div>
+      
+      <br/>
+      <br/>
+
+      <div class="actions">
+        <%= f.submit "Entrar", class: "btn btn-normal btn-block" %>
+      </div>
+    <% end %>
+
+    <hr/>
+
+    <%= link_to "Entrar com o Facebook", user_facebook_omniauth_authorize_path, class: "btn btn-facebook btn-block" %>
+  </div>
+</div>

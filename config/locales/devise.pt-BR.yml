@@ -1,0 +1,286 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+# Utilize-o em 'config/locales/', com o nome de 'devise.pt-BR.yml'.
+# Em 'config/application.rb', utilize => config.i18n.default_locale = :'pt-BR'
+
+pt-BR:
+  devise:
+    confirmations:
+      confirmed: "Sua conta foi confirmada com sucesso."
+      send_instructions: "Você receberá um e-mail para confirmar sua conta em alguns minutos."
+      send_paranoid_instructions: "Caso seu endereço de e-mail já exista em nosso banco de dados, você receberá um email com instruções sobre como ativar sua conta."
+    failure:
+      already_authenticated: "Você já está logado."
+      inactive: "Sua conta ainda não foi ativada."
+      invalid: "Email ou senha inválidos."
+      locked: "Sua conta está bloqueada."
+      last_attempt: "Você possui apenas uma tentativa, antes de sua conta ser bloqueada."
+      not_found_in_database: "Email ou senha inválidos."
+      timeout: "Sua sessão expirou, faça login novamente para continuar."
+      unauthenticated: "Você precisa fazer login ou se registrar, antes de continuar."
+      unconfirmed: "Você precisa confirmar sua conta, antes de continuar."
+    mailer:
+      confirmation_instructions:
+        subject: "Instruções de confirmação"
+      reset_password_instructions:
+        subject: "Instruções para redefinir sua senha"
+      unlock_instructions:
+        subject: "Instruções para desbloquear sua conta"
+      email_changed:
+        subject: "Email modificado"
+      password_change:
+        subject: "Senha modificada"
+    omniauth_callbacks:
+      failure: "Não foi possível autenticá-lo em %{kind} por causa de \"%{reason}\"."
+      success: "Autenticado com sucesso em %{kind}."
+    passwords:
+      no_token: "Você não pode acessar essa página para redefinir sua senha. Se você recebeu um e-mail para redefinir sua senha, por favor, certifique-se de estar usando a URL correta."
+      send_instructions: "Você receberá um e-mail com instruções sobre como redefinir sua senha em poucos minutos."
+      send_paranoid_instructions: "Se o seu endereço de e-mail existir em nosso banco de dados, você receberá um link de recuperação de senha em poucos minutos."
+      updated: "Sua senha foi alterada com sucesso. Você agora está conectado."
+      updated_not_active: "Sua senha foi alterada com sucesso."
+    registrations:
+      destroyed: "Até logo! Sua conta foi cancelada com sucesso. Nós esperamos vê-lo novamente em breve."
+      signed_up: "Bem-vindo! Você se registrou com sucesso."
+      signed_up_but_inactive: "Você se registrou com sucesso. Para efetuar login, você deverá ativar sua conta."
+      signed_up_but_locked: "Você se registrou com sucesso. No entanto, não podemos logá-lo, pois sua conta está bloqueada."
+      signed_up_but_unconfirmed: "Uma mensagem com um link de confirmação foi enviado para seu endereço de e-mail. Por favor, verifique-o, para ativar sua conta."
+      update_needs_confirmation: "Você atualizou sua conta com sucesso, mas precisamos verificar o seu novo endereço de e-mail. Por favor, verifique seu e-mail e clique no link de confirmação para confirmar o seu novo endereço de e-mail."
+      updated: "Sua conta foi atualizada com sucesso."
+    sessions:
+      signed_in: "Logado com sucesso."
+      signed_out: "Saiu com sucesso."
+      already_signed_out: "Saiu com sucesso."
+    unlocks:
+      send_instructions: "Você receberá um e-mail com instruções sobre como desbloquear sua conta, em poucos minutos."
+      send_paranoid_instructions: "Se a sua conta existir, você receberá um e-mail com instruções sobre como desbloqueá-la, em poucos minutos."
+      unlocked: "Sua conta foi desbloqueada com sucesso. Faça login para continuar."
+  errors:
+    messages:
+      already_confirmed: "já foi confirmado, por favor, efetue login"
+      confirmation_period_expired: "deve ser confirmada dentro de %{period}, por favor solicite uma nova"
+      expired: "expirado, por favor solicite uma nova"
+      not_found: "não encontrado"
+      not_locked: "não encontra-se bloqueada"
+      not_saved:
+        one: "1 erro impediu a gravação de %{resource} :"
+        other: "%{count} erros impediram a gravação de %{resource} :"
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'A validação falhou: %{errors}'
+        restrict_dependent_destroy:
+          has_one: Não é possível excluir o registro pois existe um %{record} dependente
+          has_many: Não é possível excluir o registro pois existem %{record} dependentes
+    date:
+      abbr_day_names:
+      - Dom
+      - Seg
+      - Ter
+      - Qua
+      - Qui
+      - Sex
+      - Sáb
+      abbr_month_names:
+      -
+      - Jan
+      - Fev
+      - Mar
+      - Abr
+      - Mai
+      - Jun
+      - Jul
+      - Ago
+      - Set
+      - Out
+      - Nov
+      - Dez
+      day_names:
+      - Domingo
+      - Segunda-feira
+      - Terça-feira
+      - Quarta-feira
+      - Quinta-feira
+      - Sexta-feira
+      - Sábado
+      formats:
+        default: "%d/%m/%Y"
+        long: "%d de %B de %Y"
+        short: "%d de %B"
+      month_names:
+      -
+      - Janeiro
+      - Fevereiro
+      - Março
+      - Abril
+      - Maio
+      - Junho
+      - Julho
+      - Agosto
+      - Setembro
+      - Outubro
+      - Novembro
+      - Dezembro
+      order:
+      - :day
+      - :month
+      - :year
+    datetime:
+      distance_in_words:
+        about_x_hours:
+          one: aproximadamente 1 hora
+          other: aproximadamente %{count} horas
+        about_x_months:
+          one: aproximadamente 1 mês
+          other: aproximadamente %{count} meses
+        about_x_years:
+          one: aproximadamente 1 ano
+          other: aproximadamente %{count} anos
+        almost_x_years:
+          one: quase 1 ano
+          other: quase %{count} anos
+        half_a_minute: meio minuto
+        less_than_x_minutes:
+          one: menos de um minuto
+          other: menos de %{count} minutos
+        less_than_x_seconds:
+          one: menos de 1 segundo
+          other: menos de %{count} segundos
+        over_x_years:
+          one: mais de 1 ano
+          other: mais de %{count} anos
+        x_days:
+          one: 1 dia
+          other: "%{count} dias"
+        x_minutes:
+          one: 1 minuto
+          other: "%{count} minutos"
+        x_months:
+          one: 1 mês
+          other: "%{count} meses"
+        x_years:
+          one: 1 ano
+          other: "%{count} anos"
+        x_seconds:
+          one: 1 segundo
+          other: "%{count} segundos"
+      prompts:
+        day: Dia
+        hour: Hora
+        minute: Minuto
+        month: Mês
+        second: Segundo
+        year: Ano
+    errors:
+      format: "%{attribute} %{message}"
+      messages:
+        accepted: deve ser aceito
+        blank: não pode ficar em branco
+        present: deve ficar em branco
+        confirmation: não é igual a %{attribute}
+        empty: não pode ficar vazio
+        equal_to: deve ser igual a %{count}
+        even: deve ser par
+        exclusion: não está disponível
+        greater_than: deve ser maior que %{count}
+        greater_than_or_equal_to: deve ser maior ou igual a %{count}
+        inclusion: não está incluído na lista
+        invalid: não é válido
+        less_than: deve ser menor que %{count}
+        less_than_or_equal_to: deve ser menor ou igual a %{count}
+        model_invalid: 'A validação falhou: %{errors}'
+        not_a_number: não é um número
+        not_an_integer: não é um número inteiro
+        odd: deve ser ímpar
+        required: é obrigatório(a)
+        taken: já está em uso
+        too_long:
+          one: 'é muito longo (máximo: 1 caracter)'
+          other: 'é muito longo (máximo: %{count} caracteres)'
+        too_short:
+          one: 'é muito curto (mínimo: 1 caracter)'
+          other: 'é muito curto (mínimo: %{count} caracteres)'
+        wrong_length:
+          one: não possui o tamanho esperado (1 caracter)
+          other: não possui o tamanho esperado (%{count} caracteres)
+        other_than: deve ser diferente de %{count}
+      template:
+        body: 'Por favor, verifique o(s) seguinte(s) campo(s):'
+        header:
+          one: 'Não foi possível gravar %{model}: 1 erro'
+          other: 'Não foi possível gravar %{model}: %{count} erros'
+    helpers:
+      select:
+        prompt: Por favor selecione
+      submit:
+        create: Criar %{model}
+        submit: Salvar %{model}
+        update: Atualizar %{model}
+    number:
+      currency:
+        format:
+          delimiter: "."
+          format: "%u %n"
+          precision: 2
+          separator: ","
+          significant: false
+          strip_insignificant_zeros: false
+          unit: R$
+      format:
+        delimiter: "."
+        precision: 3
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+      human:
+        decimal_units:
+          format: "%n %u"
+          units:
+            billion:
+              one: bilhão
+              other: bilhões
+            million:
+              one: milhão
+              other: milhões
+            quadrillion:
+              one: quatrilhão
+              other: quatrilhões
+            thousand: mil
+            trillion:
+              one: trilhão
+              other: trilhões
+            unit: ''
+        format:
+          delimiter: ""
+          precision: 3
+          significant: true
+          strip_insignificant_zeros: true
+        storage_units:
+          format: "%n %u"
+          units:
+            byte:
+              one: Byte
+              other: Bytes
+            gb: GB
+            kb: KB
+            mb: MB
+            tb: TB
+      percentage:
+        format:
+          delimiter: "."
+          format: "%n%"
+      precision:
+        format:
+          delimiter: "."
+    support:
+      array:
+        last_word_connector: " e "
+        two_words_connector: " e "
+        words_connector: ", "
+    time:
+      am: ''
+      formats:
+        default: "%a, %d de %B de %Y, %H:%M:%S %z"
+        long: "%d de %B de %Y, %H:%M"
+        short: "%d de %B, %H:%M"
+      pm: ''

@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-3">
+    <%= render 'service_menu' %>
+  </div>
+  <div class="col-md-9">
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        Detalhes
+      </div>
+
+      <div class="panel-body">
+        <div class="container">
+         
+        	<%= form_for @service do |f| %>
+              	<div class="row form-group">
+	              	<div class="col-md-6">
+	              		<%= f.check_box :is_independent %> Autônomo
+	              	</div>
+                  <div class="col-md-6">
+                    <%= f.check_box :is_legal_person %> Tem CNPJ
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-md-6">
+                    <%= f.check_box :has_invoice %> Emite nota fiscal
+                  </div>
+                  <div class="col-md-6">
+                    <%= f.check_box :has_garantee %> Dá garantia
+                  </div>
+	              </div>
+  	            
+                <br/><br/>
+
+                <div class="text-center">                  
+                  <%= f.submit "Salvar", class: "btn btn-form" %>
+                </div>
+            <% end %>        
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

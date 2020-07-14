@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-3">
+    <ul class="sidebar-list">
+      <li class="sidebar-item"><%= link_to "Serviços Anunciados", services_path, class: "sidebar-link active" %></li>
+      <li class="sidebar-item"><%= link_to "Serviços Reservados", your_reservation_services_path, class: "sidebar-link" %></li>
+      <li class="sidebar-item"><%= link_to "Serviços Contratados", your_contracted_services_path, class: "sidebar-link" %></li>      
+    </ul>
+  </div>
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Serviços Anunciados
+      </div>
+      <div class="panel-body">
+
+        <% @services.each do |service| %>
+          <div class="row">
+            <div class="col-md-2">
+              
+              <%= image_tag service.cover_photo, :size => "80x50"%>              
+            </div>
+            <div class="col-md-7">
+              <h4><%= link_to service.listing_name, service %></h4>
+            </div>
+            <div class="col-md-2 right">
+              <%= link_to "Editar", listing_service_path(service), class: "btn btn-form" %>
+            </div>
+            <div class="col-md-1 right">
+              <% if service.active %>
+                <i class="fa fa-check fa-lg" title="Publicado"></i>
+              <% else %>
+                <i class="fa fa-ban fa-lg" title="Despublicado"></i>
+              <% end %>
+            </div>
+          </div>
+          <hr/>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

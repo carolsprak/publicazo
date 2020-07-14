@@ -1,0 +1,54 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Publique seu Serviço
+  </div>
+  <div class="panel-body">
+    <div class="container">
+
+      <%= form_for @service do |f| %>
+
+        <div class="row">
+
+          <div class="col-md-6 select">
+            <div class="form-group">
+              <label>Categoria do Serviço</label>
+              <%= f.select :service_category, [["Casa ", "Casa "], ["Ensino", "Ensino"], ["Saúde", "Saúde"], ["Pessoal", "Pessoal"], ["Viagem", "Viagem"]], 
+                id: "service_category", prompt: "Selecione", class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-6 select">
+            <div class="form-group">
+              <label>Serviço</label>
+              <%= f.select :service_type, [["Cabeleireira", "Cabeleireira"], ["Faxineira", "Faxineira"], ["Enfermeira", "Enfermeira"], ["Professor", "Professor"], ["Guia Turístico", "Guia Turístico"]], 
+                id: "service_type", prompt: "Selecione", class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-6 select">
+            <div class="form-group">
+              <label>Modo de Atendimento</label>
+              <%= f.select :service_mode, [["Em Domicílio", "Em Domicílio"], ["No Estabelecimento", "No Estabelecimento"]], 
+                id: "service_mode", prompt: "Selecione", class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-6 select">
+            <div class="form-group">
+              <label>Periodicidade do Pagamento</label>
+              <%= f.select :payment_period, [["Gratuito", "Gratuito"], ["Por Hora", "Por Hora"], ["Por Dia", "Por Dia"], ["Por Semana", "Por Semana"], ["Por Mês", "Por Mês"]], 
+                id: "payment_period", prompt: "Selecione", class: "form-control" %>
+            </div>
+          </div>          
+
+        </div>
+
+        <div class="text-center">
+          <%= f.submit "Criar meu Serviço", class: "btn btn-form" %>          
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>

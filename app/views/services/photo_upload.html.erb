@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-md-3">
+    <%= render 'service_menu' %>
+  </div>
+  <div class="col-md-9">
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        Fotos
+      </div>
+
+      <div class="panel-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-offset-3 col-md-12">
+              <span id="photo_required" style="color:red; display:none;">Adicione pelo menos 1 foto.</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-offset-3 col-md-6">              
+              <!-- PHOTOS UPLOAD GOES HERE -->
+              <%= form_for @service, url: service_photos_path(@service), method: 'post', html: {multipart: true} do |f| %>
+                <div class="row">
+                  <div class="form-group">
+                    <span class="btn btn-default btn-file text-babu">
+                      <i class="fa fa-cloud-upload" aria-hidden="true"></i> Selecione as Fotos
+                      <%= file_field_tag "images[]", type: :file, multiple: true %>
+                    </span>  
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <%= f.submit "Adicionar Fotos", class: "btn btn-form" %>
+
+                </div>
+
+              <% end %>
+            </div>
+          </div>
+         
+         <div id="photos"><%= render 'photos/photos_list' %></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
