@@ -46,7 +46,7 @@ gem "paperclip", "~> 5.0.0"
 gem 'font-awesome-sass'
 
 #geocoder google maps
-gem 'geocoder', '~> 1.4'
+gem 'geocoder', '~> 1.6'
 
 #calendario datepicker
 gem 'jquery-ui-rails', '~>5.0'
