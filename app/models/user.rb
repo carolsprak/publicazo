@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :omniauthable
+         :omniauthable
 
   validates :fullname, presence: true, length: {maximum: 50}
 
@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 		    user.fullname = auth.info.name   
 		    user.image = auth.info.image
 		    user.uid = auth.uid
-		    user.provider = auth.provider
+		    #user.provider = auth.provider
 		    # If you are using confirmable and the provider(s) you use validate emails, 
 		    # uncomment the line below to skip the confirmation emails.
 		    user.skip_confirmation!

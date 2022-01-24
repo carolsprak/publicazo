@@ -4,8 +4,8 @@ class Service < ActiveRecord::Base
   has_many :reservation_services
   has_many :guest_review_services
 
-  geocoded_by :address
-  after_validation :geocode, if: :address_changed?
+  #geocoded_by :address
+  #after_validation :geocode, if: :address_changed?
 
   validates :service_category, presence: true
   validates :service_type, presence: true
