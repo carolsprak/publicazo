@@ -140,58 +140,7 @@
     <br/>
     <hr/>
 
-    <!-- GOOGLE MAP -->
-    <!--<div class="row">
-
-      <div id="map" style="width: 100%; height: 400px"></div>
-
-      <script src="https://maps.googleapis.com/maps/api/js"></script>
-      <script>
-          function initialize() {
-            var location = {lat: <%= @service.latitude %>, lng: <%= @service.longitude %>};
-            var map = new google.maps.Map(document.getElementById('map'), {
-              center: location,
-              zoom: 14
-            });
-
-            var marker = new google.maps.Marker({
-              position: location,
-              map: map
-            });
-
-            var infoWindow = new google.maps.InfoWindow({
-              content: '<div id="content"><%= image_tag @service.cover_photo, size: "160x100" %></div>'
-            });
-
-            infoWindow.open(map, marker);
-          }
-
-          google.maps.event.addDomListener(window, 'load', initialize);
-      </script>
-      <script async defer
-          src="https://maps.googleapis.com/maps/api/js?key=key&callback=initMap">
-        </script>       
-
-    </div>
-    <hr/>-->
-
-    <!-- NEAR BY ROOMS -->
-    <!--<div class="row">
-      <h3>Outros Serviços na Região</h3>
-      <% for service in @service.nearbys(10) %>
-          <div class="col-md-4">
-            <div class="panel panel-default">
-              <div class="panel-heading preview">
-                <%= image_tag service.cover_photo, size: "160x120" %>
-              </div>
-              <div class="panel-body">
-                <%= link_to service.listing_name, service %><br/>
-                (<%= service.distance.round(2) %> km)
-              </div>
-            </div>
-          </div>
-      <% end %>
-    </div>-->
+    
 
   </div>
 

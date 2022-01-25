@@ -6,7 +6,7 @@ $('#photos').html("<%= j render 'photos_list' %>")
   $('#photo_required').show();
 <% end %>
 
-<% if !@service.active && !@service.price.blank? && !@service.listing_name.blank? && !@service.photos.blank? && !@service.address.blank?  && !@service.is_independent.nil? %>
+<% if !@service.active && !@service.price.blank? && !@service.listing_name.blank? && !@service.address.blank?  && !@service.is_independent.nil? %>
     $('#publish_button').attr('disabled', false);
     $('#unpublish_button').attr('disabled', true);    
 <% else %>

@@ -12,8 +12,8 @@ class PagesController < ApplicationController
 
     # STEP 2
     if session[:loc_search] && session[:loc_search] != ""
-      @services_address = Service.where(active: true).near(session[:loc_search], 5, order: 'distance')
-    else
+      #@services_address = Service.where(active: true).near(session[:loc_search], 5, order: 'distance')
+    #else
       @services_address = Service.where(active: true).all
     end
 

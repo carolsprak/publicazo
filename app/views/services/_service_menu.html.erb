@@ -39,7 +39,7 @@
 </ul>
 <hr/>
 
-<% is_ready = !@service.active && !@service.price.blank? && !@service.listing_name.blank? && !@service.photos.blank? && !@service.address.blank? && !@service.is_independent.nil? %>
+<% is_ready = !@service.active && !@service.price.blank? && !@service.listing_name.blank? && !@service.address.blank? && !@service.is_independent.nil? %>
 
 <%= form_for @service do |f| %>
   <%= f.hidden_field :active, value: true %>

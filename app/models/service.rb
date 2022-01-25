@@ -3,7 +3,7 @@ class Service < ActiveRecord::Base
   has_many :photos
   has_many :reservation_services
   has_many :guest_review_services
-
+  
   #geocoded_by :address
   #after_validation :geocode, if: :address_changed?
 
@@ -16,7 +16,7 @@ class Service < ActiveRecord::Base
     if self.photos.length > 0
       self.photos[0].image.url()
     else
-      "blank.jpg"
+      "11.png"
     end
   end
 

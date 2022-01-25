@@ -77,12 +77,12 @@ class ServicesController < ApplicationController
     end
 
     def is_ready_service
-      !@service.active && !@service.price.blank? && !@service.listing_name.blank? && !@service.photos.blank? && !@service.address.blank?
+      !@service.active && !@service.price.blank? && !@service.listing_name.blank? && !@service.address.blank?
     end
 
     def service_params
       params.require(:service).permit(:service_category, :service_type, :service_mode, 
-        :payment_period, :listing_name, :summary, :address, 
+        :payment_period, :listing_name, :summary, :address, :photo_upload,
         :is_independent, :is_legal_person, :has_invoice,
          :has_garantee, :price, :active)      
     end
