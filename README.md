@@ -22,8 +22,11 @@ $ sudo docker-compose up --build
 
 # 2. Instalação necessária para Ruby on Rails
 
-Acessar tutorial, apenas para fins acadêmicos, sobre instalação de Ruby on Rails v 4.2.9: https://carolsprak.gitbook.io/ruby-on-rails-para-iniciantes/
-- Versão Atual do Rails: Acessar o site ofical https://rubyonrails.org/
+Acessar tutorial, apenas para fins acadêmicos, sobre instalação de Ruby on Rails v 4.2.9: 
+- https://carolsprak.gitbook.io/ruby-on-rails-para-iniciantes/
+
+Versão Atual do Rails no site ofical:
+- https://rubyonrails.org/
 
 ## 1. Instalar o Rails \(Simplificado\)
 
