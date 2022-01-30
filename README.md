@@ -1,7 +1,7 @@
----
-description: >-
-  Sistema para oferecer agendamento de serviços em tempo real.
----
+# description:
+
+Sistema para oferecer agendamento de serviços em tempo real.
+- Acessar a aplicação: http://publicazo.insprak.com/
 
 # 1. Instalação usando Docker do projeto
 
@@ -127,4 +127,11 @@ $ rails -v
 # Rails 4.2.9
 ```
 
+## Controle de Versão
+Utilizamos o git para controle de versão. Cheque as [tags nesse repositório](https://github.com/carolsprak/publicazo/tags) para ver as versões disponíveis.
 
+## Autora
+* **Anne Caroline Rocha**
+
+## Licença
+Este projeto está licenciado sob a Licença MIT - veja [LICENSE](LICENSE)
