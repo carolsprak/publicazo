@@ -1,6 +1,6 @@
 # description:
 
-Sistema para oferecer agendamento de serviços em tempo real.
+Sistema desenvolvido para fins acadêmicos, que publica serviços gerais, realiza agendamentos e avalia clientes e serviços oferecidos.
 - Acessar a aplicação: http://publicazo.insprak.com/
 
 # 1. Instalação usando Docker do projeto
