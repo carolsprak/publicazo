@@ -1,4 +1,4 @@
-# description:
+# Description:
 
 Sistema desenvolvido para fins acadêmicos, que publica serviços gerais, realiza agendamentos e avalia clientes e serviços oferecidos.
 - Acessar a aplicação: http://publicazo.insprak.com/
