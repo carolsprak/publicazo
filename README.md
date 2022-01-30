@@ -8,10 +8,12 @@ Sistema desenvolvido para fins acadêmicos, que publica serviços gerais, realiz
 ```bash
 # Primeira vez que for iniciar o projeto no docker
 $ sudo docker-compose build
-
+```
+```bash
 # Iniciar o servidor de aplicação do docker
 $ sudo docker-compose up
-
+```
+```bash
 # Em caso de mudanças na aplicação, para reiniciar o servidor.
 $ Ctrl + c
 $ sudo docker-compose up --build
