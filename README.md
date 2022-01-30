@@ -12,9 +12,6 @@ $ sudo docker-compose build
 # Iniciar o servidor de aplicação do docker
 $ sudo docker-compose up
 
-# Em um outro terminal criar as tabelas de banco de dados
-$ sudo docker-compose run web rake db:create
-
 # Em caso de mudanças na aplicação, para reiniciar o servidor.
 $ Ctrl + c
 $ sudo docker-compose up --build
