@@ -49,7 +49,7 @@ gem 'font-awesome-sass'
 gem 'geocoder', '~> 1.4'
 
 #calendario datepicker
-gem 'jquery-ui-rails', '~>5.0'
+gem 'jquery-ui-rails', '~>6.0'
 
 #search
 gem 'ransack', '~>1.7'
