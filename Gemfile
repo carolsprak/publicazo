@@ -15,7 +15,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.3.1'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 #gem 'turbolinks', '~>5'
 
@@ -31,19 +31,19 @@ gem 'devise', '~> 4.2'
 #notificação
 gem 'toastr-rails', '~> 1.0'
 #e-mail ativação gmail
-gem 'figaro'
+gem 'figaro', '~> 1.1.1'
 
 #Autenticação via facebook
 gem 'omniauth', '~> 1.6' 
 gem 'omniauth-facebook', '~> 4.0' 
 
-gem 'certified'
+gem 'certified', '~> 1.0.0'
 
 #upload fotos
 gem "paperclip", "~> 5.0.0"
 
 #font ícone
-gem 'font-awesome-sass'
+gem 'font-awesome-sass', '~> 4.7.0'
 
 #geocoder google maps
 gem 'geocoder', '~> 1.4'
